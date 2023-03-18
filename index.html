@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head> </head>
+  <body>
+    <table id="myTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Age</th>
+          <th>City</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>John</td>
+          <td>25</td>
+          <td>New York</td>
+        </tr>
+        <tr>
+          <td>Jane</td>
+          <td>30</td>
+          <td>San Francisco</td>
+        </tr>
+        <tr>
+          <td>Bob</td>
+          <td>30</td>
+          <td>Los Angeles</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <label for="age">Filter by age:</label>
+    <select id="age">
+      <option value="">All</option>
+      <option value="25">25</option>
+      <option value="30">30</option>
+      <option value="35">30</option>
+    </select>
+
+    <label for="city">Filter by city:</label>
+    <select id="city">
+      <option value="">All</option>
+      <option value="New York">New York</option>
+      <option value="San Francisco">San Francisco</option>
+      <option value="Los Angeles">Los Angeles</option>
+    </select>
+  </body>
+  <script>
+    // Get the table, age and city dropdowns
+    var table = document.getElementById("myTable");
+    var ageDropdown = document.getElementById("age");
+    var cityDropdown = document.getElementById("city");
+
+    // Add event listeners to the dropdowns
+    ageDropdown.addEventListener("change", filterTable);
+    cityDropdown.addEventListener("change", filterTable);
+
+    function filterTable() {
+      var ageValue = ageDropdown.value;
+      var cityValue = cityDropdown.value;
+      var rows = table.getElementsByTagName("tr");
+
+      // Loop through all table rows, hide those that don't match the filter criteria
+      for (var i = 1; i < rows.length; i++) {
+        var row = rows[i];
+        var age = row.getElementsByTagName("td")[1].textContent;
+        var city = row.getElementsByTagName("td")[2].textContent;
+        var hide = false;
+
+        if (ageValue && age !== ageValue) {
+          hide = true;
+        }
+
+        if (cityValue && city !== cityValue) {
+          hide = true;
+        }
+
+        if (hide) {
+          row.style.display = "none";
+        } else {
+          row.style.display = "";
+        }
+      }
+    }
+  </script>
+</html>
